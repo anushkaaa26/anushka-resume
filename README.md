@@ -18,7 +18,7 @@ I'm currently exploring:
 
 ## 📌 Resume
 
-📥 **[Download My Resume (PDF)](./Anushka_Dhiman_Resume.pdf)**  
+📥 **[Download My Resume (PDF)](https://github.com/anushkaaa26/anushka-resume/blob/a4ed19dfc5194dbf18f4164c86a251ecb75384a6/Resume.pdf)**  
 _Last updated: July 2025_
 
 ---
