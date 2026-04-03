@@ -1,24 +1,42 @@
-name: Compile LaTeX Resume
+name: Build LaTeX Resume
 
 on:
   push:
     branches: [ main ]
+  workflow_dispatch:
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout repo
+    - name: Checkout repository
       uses: actions/checkout@v3
 
-    - name: Compile LaTeX
+    - name: Compile LaTeX (with full packages)
       uses: xu-cheng/latex-action@v2
       with:
         root_file: resume.tex
+        latexmk_use_xelatex: true
 
-    - name: Upload PDF
-      uses: actions/upload-artifact@v3
+    - name: Rename PDF (safety)
+      run: |
+        if [ -f resume.pdf ]; then
+          mv resume.pdf resume.pdf
+        else
+          ls
+        fi
+
+    - name: Upload PDF artifact
+      uses: actions/upload-artifact@v4
       with:
-        name: resume
-        path: resume.pdf
+        name: resume-pdf
+        path: "*.pdf"
+
+    - name: Commit PDF to repo
+      run: |
+        git config --global user.name "github-actions"
+        git config --global user.email "actions@github.com"
+        git add *.pdf
+        git commit -m "Auto-update resume PDF" || echo "No changes to commit"
+        git push
